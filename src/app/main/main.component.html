@@ -1,0 +1,67 @@
+<div class="flex">
+  <button mat-flat-button color="primary" (click)="openAddDialog()">
+    <mat-icon>person_add</mat-icon>Добавить клиента
+  </button>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Имя клиента</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rate">
+      <th mat-header-cell *matHeaderCellDef>Тариф</th>
+      <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="activationDate">
+      <th mat-header-cell *matHeaderCellDef>Дата подисания договора</th>
+      <td mat-cell *matCellDef="let element">{{element.activationDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="referralInfo">
+      <th mat-header-cell *matHeaderCellDef>Описание</th>
+      <td mat-cell *matCellDef="let element"> {{element.referralInfo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hasTrialLesson">
+      <th mat-header-cell *matHeaderCellDef>Пробное занятие</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.hasTrialLesson;else unset" class="lesson-chip success">
+             <mat-icon>done</mat-icon>
+              Заявлен
+        </span>
+        <ng-template #unset>
+           <span class="lesson-chip error">
+             <mat-icon>close</mat-icon>
+              Не заявлен
+          </span>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Телефон</th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Действия</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          (click)="openDeleteDialog(element.id, element.name)"
+          mat-icon-button
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -1,0 +1,72 @@
+<form [formGroup]="clientForm" class="form" novalidate (ngSubmit)="submit()">
+  <h2 mat-dialog-title>Добавление клиента</h2>
+  <mat-dialog-content class="form__content">
+    <p>Пожалуйста, заполните данные о клиенте</p>
+      <mat-form-field>
+        <mat-label>Имя</mat-label>
+        <input required matInput type="text" formControlName="name"/>
+        <mat-hint class="error-hint">
+          <ng-container *ngIf="name?.touched && name?.errors?.['required']">
+            Имя не должно быть пустым
+          </ng-container>
+          <ng-container *ngIf="name?.touched && name?.errors?.['pattern']">
+            Имя должно содержать только буквы
+          </ng-container>
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Тариф</mat-label>
+        <mat-select required formControlName="rate">
+          <mat-option *ngFor="let rate of rates" [value]="rate.id">{{rate.value}}</mat-option>
+        </mat-select>
+        <mat-hint class="error-hint" >
+          <ng-container *ngIf="rate?.touched && rate?.errors?.['required']">
+            Тариф не должен быть пустым
+          </ng-container>
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Дата договора с клиентом</mat-label>
+        <input required matInput  [matDatepicker]="picker" formControlName="activationDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint class="error-hint" >
+          <ng-container *ngIf="activationDate?.touched && activationDate?.errors?.['logic']">
+            Дата не может быть позднее сегодняшней
+          </ng-container>
+          <ng-container *ngIf="activationDate?.touched && activationDate?.errors?.['format']">
+            Неверный формат даты
+          </ng-container>
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Реферальная информация</mat-label>
+        <input matInput formControlName="referralInfo" type="text"/>
+      </mat-form-field>
+      <mat-checkbox class="mb-22" color="primary" formControlName="hasTrialLesson">Записать на пробное занятие?</mat-checkbox>
+      <mat-form-field>
+        <mat-label>Телефон</mat-label>
+        <input matInput
+               prefix="+"
+               [showMaskTyped]="true"
+               mask="0 (000) 000 00 00"
+               required
+               formControlName="phone"
+        />
+        <mat-hint class="error-hint" >
+          <ng-container *ngIf="phone?.touched && phone?.errors?.['mask']">
+            Невалидный номер телефона
+          </ng-container>
+          <ng-container *ngIf="phone?.touched && phone?.errors?.['required']">
+            Номер телефона не должен быть пустым
+          </ng-container>
+        </mat-hint>
+      </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions-wrapper" align="end">
+    <button mat-flat-button color="primary" [disabled]="clientForm.invalid" type="submit">
+      <mat-icon>save</mat-icon>Сохранить
+    </button>
+    <button mat-button color="warn" type="button" (click)="onNoClick()">Отмена</button>
+  </mat-dialog-actions>
+</form>

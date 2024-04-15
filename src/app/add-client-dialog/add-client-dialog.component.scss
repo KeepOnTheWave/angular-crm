@@ -1,0 +1,24 @@
+.form {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.mb-22 {
+  margin-bottom: 22px;
+}
+
+.error-hint {
+  color: var(--mdc-filled-text-field-error-label-text-color)
+}
+
+.actions-wrapper {
+  padding: 16px;
+}

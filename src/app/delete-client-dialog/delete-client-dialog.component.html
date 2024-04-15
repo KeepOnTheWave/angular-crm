@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Удаление клиента</h2>
+<mat-dialog-content>
+  <p>Вы действительно хотите удалить клиента {{data.name}}?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="onNoClick()">Нет</button>
+  <button mat-button color="warn" (click)="onYesClick()">Да</button>
+</mat-dialog-actions>
